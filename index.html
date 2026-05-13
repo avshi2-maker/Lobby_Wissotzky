@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-<meta name="version" content="BAXAB-LP-13052026-v8">
+<meta name="version" content="BAXAB-LP-13052026-v9">
 <meta name="theme-color" content="#0A1628">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="mobile-web-app-capable" content="yes">
@@ -185,6 +185,30 @@ section { position: relative; z-index: 1; padding: 120px 48px; max-width: 1280px
 .headline-cost-label { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 24px; }
 .headline-cost-value { font-family: var(--serif); font-size: clamp(64px, 10vw, 140px); font-weight: 700; color: var(--gold); line-height: 0.95; letter-spacing: -3px; margin-bottom: 16px; }
 .headline-cost-note { font-size: 17px; color: var(--ink-soft); max-width: 600px; margin: 0 auto; padding: 0 16px; }
+
+/* === BUDGET BLOCK (replaces headline-cost as primary cost display) === */
+.budget-block { margin: 50px 0; padding: 60px 48px; background: var(--bg-card); border: 1px solid var(--gold); box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5); }
+.budget-eyebrow { font-size: 11px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; text-align: center; }
+.budget-title { font-family: var(--serif); font-size: clamp(28px, 4vw, 42px); color: var(--ink); margin-bottom: 14px; text-align: center; line-height: 1.15; }
+.budget-sub { font-size: 14px; color: var(--ink-mute); text-align: center; margin-bottom: 40px; line-height: 1.6; }
+.budget-grid { border-top: 1px solid var(--line); }
+.budget-row { display: grid; grid-template-columns: 1fr auto auto; gap: 24px; align-items: baseline; padding: 22px 8px; border-bottom: 1px solid var(--line); }
+.budget-row-label { font-size: 15px; color: var(--ink-soft); }
+.budget-row-value { font-family: var(--serif); font-size: 24px; color: var(--ink); font-weight: 600; min-width: 180px; text-align: left; direction: ltr; }
+.budget-row-aside { font-size: 13px; color: var(--ink-mute); font-family: monospace; min-width: 100px; text-align: left; direction: ltr; }
+.budget-row-total { background: rgba(201,169,97,0.06); padding: 26px 12px; }
+.budget-row-total .budget-row-label { color: var(--ink); font-weight: 600; }
+.budget-row-total .budget-row-value { color: var(--gold); font-size: 28px; }
+.budget-row-highlight { background: rgba(201,169,97,0.14); border: 1px solid var(--gold); border-radius: 0; padding: 32px 14px; margin-top: 6px; }
+.budget-row-highlight .budget-row-label { color: var(--ink); font-size: 16px; font-weight: 600; }
+.budget-row-value-big { font-size: 48px !important; color: var(--gold) !important; line-height: 1; }
+.budget-row-highlight .budget-row-aside { color: var(--ink-soft); font-size: 15px; }
+.budget-fx-note { margin-top: 32px; padding: 16px 20px; background: rgba(10,22,40,0.5); border-right: 3px solid var(--ink-mute); font-size: 13px; color: var(--ink-soft); line-height: 1.6; }
+.budget-addons { margin-top: 24px; padding: 24px 24px; background: rgba(10,22,40,0.4); border: 1px dashed var(--ink-mute); }
+.budget-addons-title { font-family: var(--serif); font-size: 14px; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; margin-bottom: 14px; }
+.budget-addons-list { list-style: none; padding: 0; margin: 0; }
+.budget-addons-list li { padding: 8px 0; padding-right: 22px; position: relative; color: var(--ink-soft); font-size: 14px; line-height: 1.5; }
+.budget-addons-list li::before { content: '+'; position: absolute; right: 0; top: 8px; color: var(--gold); font-weight: 700; font-size: 16px; }
 .calc-block { margin-top: 80px; padding: 60px 48px; background: var(--bg-card); border: 1px solid var(--gold); box-shadow: var(--shadow); }
 .calc-title { font-family: var(--serif); font-size: 28px; color: var(--ink); margin-bottom: 12px; text-align: center; }
 .calc-sub { text-align: center; color: var(--ink-mute); font-size: 15px; margin-bottom: 48px; }
@@ -343,6 +367,19 @@ footer .gold { color: var(--gold); }
   .hero h1 { font-size: 30px; }
   .headline-cost-value { font-size: 56px; }
   .calc-result-pct { font-size: 52px; }
+  .budget-row-value-big { font-size: 36px !important; }
+}
+@media (max-width: 768px) {
+  .budget-block { padding: 32px 20px; }
+  .budget-row { grid-template-columns: 1fr; gap: 4px; padding: 16px 4px; }
+  .budget-row-value { font-size: 22px; text-align: right; direction: rtl; }
+  .budget-row-aside { font-size: 12px; text-align: right; direction: rtl; }
+  .budget-row-total .budget-row-value { font-size: 24px; }
+  .budget-row-value-big { font-size: 40px !important; }
+  .budget-row-highlight { padding: 22px 12px; }
+  .budget-row-highlight .budget-row-label { font-size: 14px; }
+  .budget-addons { padding: 18px 18px; }
+  .budget-addons-list li { font-size: 13px; }
 }
 </style>
 </head>
@@ -527,12 +564,50 @@ footer .gold { color: var(--gold); }
     <div class="reveal">
       <span class="section-eyebrow">המספרים · השקיפות המלאה</span>
       <h2 class="section-title">השאלה האמיתית: <span class="gold">כמה זה עולה לי לדירה?</span></h2>
-      <p class="section-lead">סך הפרויקט מחולק שווה בין 173 הדירות בשני המגדלים (כל מגדל 15 קומות). זה הסכום שאתם נדרשים להשקיע — וזה היחס שלו לערך הדירה שלכם.</p>
+      <p class="section-lead">סך הפרויקט מחולק שווה בין 173 הדירות בשני המגדלים (כל מגדל 15 קומות). זה הסכום שכל דירה נדרשת להשקיע — בשקלים וביורו — וזה היחס שלו לערך הדירה שלכם בשוק.</p>
     </div>
-    <div class="headline-cost reveal">
-      <div class="headline-cost-label">עלות לדירה · כולל מע״מ</div>
-      <div class="headline-cost-value">€2,786</div>
-      <div class="headline-cost-note">חלוקה שווה בין 173 הדירות (2 מגדלים × 15 קומות). המחיר משקף את כלל הפרויקט: 450 מ"ר לובי, התקנה מלאה, 9 שבועות ביצוע ו-24 חודשי אחריות.</div>
+    <div class="budget-block reveal">
+      <div class="budget-eyebrow">הערכה תקציבית מלאה · WISSOTZKY 6</div>
+      <h3 class="budget-title">סך כל הפרויקט</h3>
+      <p class="budget-sub">לובי 450 מ"ר · 173 דירות · 9 שבועות ביצוע · 24 חודשי אחריות · ייבוא חומרים ישיר מברצלונה</p>
+
+      <div class="budget-grid">
+        <div class="budget-row">
+          <div class="budget-row-label">סך עלות הפרויקט · לפני מע"מ</div>
+          <div class="budget-row-value">₪ 1,388,812</div>
+          <div class="budget-row-aside">€ 408,474</div>
+        </div>
+        <div class="budget-row">
+          <div class="budget-row-label">מע"מ 18%</div>
+          <div class="budget-row-value">₪ 249,985</div>
+          <div class="budget-row-aside">€ 73,525</div>
+        </div>
+        <div class="budget-row budget-row-total">
+          <div class="budget-row-label">סך כולל מע"מ</div>
+          <div class="budget-row-value">₪ 1,638,797</div>
+          <div class="budget-row-aside">€ 481,999</div>
+        </div>
+        <div class="budget-row budget-row-highlight">
+          <div class="budget-row-label">עלות לדירה · חלוקה שווה בין 173 דירות · כולל מע"מ</div>
+          <div class="budget-row-value budget-row-value-big">₪ 9,472</div>
+          <div class="budget-row-aside">€ 2,786</div>
+        </div>
+      </div>
+
+      <div class="budget-fx-note">
+        <strong>שער חליפין:</strong> 3.40 ₪ / €. בעת חתימת החוזה, התשלום ייצמד לשערי בנק ישראל ביום הוצאת החשבונית.
+      </div>
+
+      <div class="budget-addons">
+        <div class="budget-addons-title">תוספות אופציונליות · מחירון נפרד לפי בקשה</div>
+        <ul class="budget-addons-list">
+          <li>חוזה שירות ואחזקה שנתי (ניקוי מקצועי + חידוש שכבת איטום)</li>
+          <li>גוון מותאם אישית (Paint to Sample של Topcret) מעבר ל-5 הגוונים הסטנדרטיים</li>
+          <li>פס הפרדה דקורטיבי מפליז בין אזורי הלובי</li>
+          <li>הזמנת פאנל דוגמה פיזי מברצלונה לפני התקנה (מומלץ)</li>
+          <li>הארכת אחריות ל-5 שנים (במקום 3)</li>
+        </ul>
+      </div>
     </div>
     <div class="calc-block reveal">
       <h3 class="calc-title">כמה זה משווי הדירה שלכם?</h3>
@@ -540,14 +615,14 @@ footer .gold { color: var(--gold); }
       <div class="calc-slider-wrap">
         <div class="calc-value-display">
           <div class="calc-value-label">שווי הדירה</div>
-          <div class="calc-value-number" id="aptValue">€ 5,000,000</div>
+          <div class="calc-value-number" id="aptValue">₪ 15,000,000</div>
         </div>
-        <input type="range" min="2000000" max="8000000" step="100000" value="5000000" class="calc-slider" id="slider">
-        <div class="calc-range"><span>€ 8,000,000</span><span>€ 2,000,000</span></div>
+        <input type="range" min="8000000" max="25000000" step="500000" value="15000000" class="calc-slider" id="slider">
+        <div class="calc-range"><span>₪ 25,000,000</span><span>₪ 8,000,000</span></div>
         <div class="calc-result">
           <div class="calc-result-label">העלות לדירה כאחוז משוויה</div>
-          <div class="calc-result-pct"><span id="pctVal">0.056</span><span class="pct-sign">%</span></div>
-          <div class="calc-result-msg" id="pctMsg">פחות מ-0.08% משווי הדירה</div>
+          <div class="calc-result-pct"><span id="pctVal">0.063</span><span class="pct-sign">%</span></div>
+          <div class="calc-result-msg" id="pctMsg">פחות מעשירית האחוז משווי הדירה</div>
         </div>
       </div>
     </div>
@@ -633,7 +708,7 @@ footer .gold { color: var(--gold); }
 <footer>
   <p><span class="gold">ספירים</span> · פתרונות ריצוף ומשטחים מיוחדים</p>
   <p>אבשי ספיר · avshi@sapirim.com</p>
-  <p style="margin-top: 20px; font-size: 11px;">הצעת תקציב Baxab · Wissotzky 6, תל אביב · גרסה 13.05.2026 · v8 · טיוטה לסקירה</p>
+  <p style="margin-top: 20px; font-size: 11px;">הצעת תקציב Baxab · Wissotzky 6, תל אביב · גרסה 13.05.2026 · v9 · טיוטה לסקירה</p>
   <p style="font-size: 11px;">תוקף ההצעה: 60 יום · עלויות חומרים מובטחות 60 יום מתאריך ההצעה</p>
 </footer>
 
@@ -735,11 +810,11 @@ var slider = document.getElementById('slider');
 var aptVal = document.getElementById('aptValue');
 var pctVal = document.getElementById('pctVal');
 var pctMsg = document.getElementById('pctMsg');
-var COST_PER_APT = 2786;
-function formatEur(n) { return '€ ' + n.toLocaleString('en-US'); }
+var COST_PER_APT = 9472;  // ₪9,472 per apartment incl VAT (€2,786 × 3.40 ILS/EUR)
+function formatNis(n) { return '₪ ' + n.toLocaleString('en-US'); }
 function updateCalc() {
   var v = parseInt(slider.value);
-  aptVal.textContent = formatEur(v);
+  aptVal.textContent = formatNis(v);
   var pct = (COST_PER_APT / v) * 100;
   pctVal.textContent = pct.toFixed(3);
   if (pct > 0.10) pctMsg.textContent = 'פחות מ-0.15% משווי הדירה';
