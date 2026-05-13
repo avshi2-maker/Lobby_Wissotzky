@@ -1,0 +1,838 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="version" content="BAXAB-LP-13052026-v7">
+<meta name="theme-color" content="#0A1628">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="description" content="הצעה לשיפוץ לובי הבניין במערכת Topcret Baxab — תל אביב">
+<title>שיפוץ לובי הבניין · Topcret Baxab · ספירים</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@300;500;700;900&family=Heebo:wght@300;400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg-deep: #0A1628; --bg-mid: #0F1F38; --bg-card: #152843; --bg-card-2: #1B3354;
+  --ink: #F5F0E6; --ink-soft: #C8BFAC; --ink-mute: #8A8472;
+  --gold: #C9A961; --gold-deep: #A88845; --gold-glow: rgba(201, 169, 97, 0.15);
+  --line: rgba(201, 169, 97, 0.18); --accent-red: #B85450;
+  --shadow: 0 24px 60px -20px rgba(0,0,0,0.5);
+  --serif: 'Frank Ruhl Libre', 'David Libre', Georgia, serif;
+  --sans: 'Heebo', 'Arial Hebrew', sans-serif;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; overflow-x: clip; max-width: 100vw; }
+body { background: var(--bg-deep); color: var(--ink); font-family: var(--sans); font-weight: 300; line-height: 1.7; overflow-x: clip; max-width: 100vw; -webkit-font-smoothing: antialiased; font-size: 17px; }
+body::before { content: ''; position: fixed; top: -20%; right: -20%; width: 80vw; height: 80vw; background: radial-gradient(circle, var(--gold-glow) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+body::after { content: ''; position: fixed; bottom: -30%; left: -20%; width: 70vw; height: 70vw; background: radial-gradient(circle, rgba(31, 58, 95, 0.4) 0%, transparent 60%); pointer-events: none; z-index: 0; }
+
+.nav { position: fixed; top: 0; right: 0; left: 0; padding: 24px 48px; display: flex; align-items: center; justify-content: space-between; z-index: 100; background: linear-gradient(to bottom, rgba(10, 22, 40, 0.95), rgba(10, 22, 40, 0.7) 70%, transparent); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); transition: padding 0.3s; }
+.nav.scrolled { padding: 14px 48px; background: rgba(10,22,40,0.98); }
+.nav-brand { font-family: var(--serif); font-size: 22px; font-weight: 700; color: var(--ink); letter-spacing: 0.5px; }
+.nav-brand span { color: var(--gold); }
+.nav-links { display: flex; gap: 36px; list-style: none; }
+.nav-links a { color: var(--ink-soft); text-decoration: none; font-size: 14px; font-weight: 400; letter-spacing: 0.3px; position: relative; transition: color 0.3s; padding: 8px 0; }
+.nav-links a:hover, .nav-links a:active { color: var(--gold); }
+.nav-links a::after { content: ''; position: absolute; bottom: 0; right: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.3s; }
+.nav-links a:hover::after { width: 100%; }
+
+.hero { min-height: 100vh; padding: 120px 48px 80px; position: relative; z-index: 1; max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; justify-content: center; }
+.hero-eyebrow { display: inline-block; font-size: 12px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 32px; padding-bottom: 8px; border-bottom: 1px solid var(--gold); align-self: flex-start; }
+.hero-grid { display: grid; grid-template-columns: 1fr 0.85fr; gap: 60px; align-items: center; margin-bottom: 60px; }
+.hero-text-col { min-width: 0; }
+.hero h1 { font-family: var(--serif); font-weight: 700; font-size: clamp(34px, 5.5vw, 68px); line-height: 1.1; color: var(--ink); letter-spacing: -1px; margin-bottom: 28px; opacity: 0; animation: fadeInUp 1s 0.2s forwards; }
+.hero h1 .gold { color: var(--gold); font-style: italic; font-weight: 500; }
+.hero-sub { font-size: clamp(17px, 1.7vw, 22px); color: var(--ink-soft); font-weight: 300; line-height: 1.6; opacity: 0; animation: fadeInUp 1s 0.4s forwards; }
+
+.hero-image-box { position: relative; aspect-ratio: 4 / 5; background: linear-gradient(135deg, var(--bg-card-2) 0%, var(--bg-card) 100%); border: 1px solid var(--gold); overflow: hidden; box-shadow: 0 30px 60px -20px rgba(0,0,0,0.6), 0 0 0 1px var(--gold-glow); opacity: 0; animation: fadeInUp 1s 0.6s forwards; }
+.hero-image-box img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.hero-image-box .placeholder { position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; text-align: center; background: radial-gradient(circle at 30% 30%, rgba(201,169,97,0.18), transparent 50%), radial-gradient(circle at 70% 70%, rgba(27,51,84,0.5), transparent 50%), var(--bg-card); }
+.hero-image-box .placeholder-icon { font-family: var(--serif); font-size: 60px; color: var(--gold); opacity: 0.6; margin-bottom: 24px; letter-spacing: 4px; }
+.hero-image-box .placeholder-text { font-family: var(--serif); font-size: 19px; color: var(--ink-soft); line-height: 1.5; margin-bottom: 12px; }
+.hero-image-box .placeholder-note { font-size: 12px; color: var(--ink-mute); letter-spacing: 1px; text-transform: uppercase; }
+.hero-image-caption { margin-top: 14px; font-size: 12px; color: var(--ink-mute); letter-spacing: 1.5px; text-align: center; text-transform: uppercase; }
+
+.hero-numbers { display: grid; grid-template-columns: repeat(4, 1fr); padding: 40px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); opacity: 0; animation: fadeInUp 1s 0.8s forwards; }
+.hero-num { text-align: center; padding: 0 24px; border-left: 1px solid var(--line); }
+.hero-num:last-child { border-left: none; }
+.hero-num-value { font-family: var(--serif); font-size: clamp(28px, 3.5vw, 44px); font-weight: 700; color: var(--gold); line-height: 1; margin-bottom: 8px; }
+.hero-num-label { font-size: 13px; color: var(--ink-mute); letter-spacing: 1.5px; }
+.hero-cta { margin-top: 60px; display: flex; gap: 20px; flex-wrap: wrap; opacity: 0; animation: fadeInUp 1s 1s forwards; }
+.btn { padding: 18px 42px; font-family: var(--sans); font-size: 15px; font-weight: 500; letter-spacing: 1px; cursor: pointer; text-decoration: none; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); border: none; min-height: 48px; display: inline-flex; align-items: center; justify-content: center; }
+.btn-primary { background: var(--gold); color: var(--bg-deep); }
+.btn-primary:hover, .btn-primary:active { background: var(--ink); transform: translateY(-2px); box-shadow: 0 14px 30px -10px var(--gold-glow); }
+.btn-secondary { background: transparent; color: var(--ink); border: 1px solid var(--ink-soft); }
+.btn-secondary:hover, .btn-secondary:active { border-color: var(--gold); color: var(--gold); }
+
+section { position: relative; z-index: 1; padding: 120px 48px; max-width: 1280px; margin: 0 auto; }
+.section-eyebrow { font-size: 12px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 20px; }
+.section-title { font-family: var(--serif); font-weight: 700; font-size: clamp(30px, 4.5vw, 52px); line-height: 1.15; color: var(--ink); letter-spacing: -0.5px; margin-bottom: 32px; max-width: 900px; }
+.section-title .gold { color: var(--gold); font-style: italic; font-weight: 500; }
+.section-lead { font-size: 18px; color: var(--ink-soft); line-height: 1.7; max-width: 800px; margin-bottom: 60px; }
+
+.problem { background: var(--bg-mid); padding: 120px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.problem-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+.problem-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; margin-top: 40px; }
+.problem-card { padding: 48px; background: var(--bg-card); border: 1px solid var(--line); position: relative; transition: transform 0.4s, border-color 0.4s; }
+.problem-card:hover { transform: translateY(-6px); border-color: var(--gold); }
+.problem-card-num { font-family: var(--serif); font-size: 80px; font-weight: 300; color: var(--gold); opacity: 0.4; line-height: 1; position: absolute; top: 24px; left: 32px; }
+.problem-card h3 { font-family: var(--serif); font-size: 26px; color: var(--ink); margin-bottom: 18px; font-weight: 500; padding-left: 60px; }
+.problem-card p { color: var(--ink-soft); line-height: 1.7; }
+
+.solution-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin: 60px 0 40px; }
+.compare-card { padding: 40px; border: 1px solid var(--line); position: relative; }
+.compare-card.before { background: var(--bg-mid); opacity: 0.7; }
+.compare-card.before .compare-label { color: var(--accent-red); }
+.compare-card.after { background: linear-gradient(135deg, var(--bg-card-2) 0%, var(--bg-card) 100%); border-color: var(--gold); box-shadow: 0 20px 50px -20px var(--gold-glow); }
+.compare-card.after .compare-label { color: var(--gold); }
+.compare-label { font-size: 12px; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700; }
+.compare-title { font-family: var(--serif); font-size: 24px; color: var(--ink); margin-bottom: 20px; }
+.compare-list { list-style: none; padding: 0; }
+.compare-list li { padding: 10px 0; color: var(--ink-soft); font-size: 15px; border-bottom: 1px solid var(--line); }
+.compare-list li:last-child { border-bottom: none; }
+.compare-list li::before { content: '◆'; color: var(--gold); margin-left: 12px; font-size: 10px; opacity: 0.6; }
+.compare-card.before .compare-list li::before { color: var(--accent-red); opacity: 0.5; }
+
+.case-history { margin-top: 80px; padding: 60px 48px; background: var(--bg-card); border: 1px solid var(--line); }
+.case-title { font-family: var(--serif); font-size: 30px; color: var(--ink); margin-bottom: 12px; }
+.case-sub { font-size: 16px; color: var(--ink-mute); margin-bottom: 36px; max-width: 700px; line-height: 1.6; }
+.case-filters { display: flex; flex-wrap: wrap; gap: 14px 28px; padding: 24px; background: var(--bg-mid); border: 1px solid var(--line); margin-bottom: 32px; align-items: center; }
+.case-filters-label { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); font-weight: 500; margin-left: 8px; }
+.case-filter { display: inline-flex; align-items: center; cursor: pointer; font-size: 14px; color: var(--ink-soft); user-select: none; padding: 6px 0; transition: color 0.2s; }
+.case-filter:hover { color: var(--ink); }
+.case-filter input { margin-left: 8px; width: 18px; height: 18px; accent-color: var(--gold); cursor: pointer; }
+.case-filter.checked { color: var(--gold); }
+.case-counter { margin-right: auto; font-size: 13px; color: var(--ink-mute); letter-spacing: 1px; }
+.case-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+.case-card { position: relative; aspect-ratio: 4 / 3; overflow: hidden; cursor: pointer; border: 1px solid var(--line); background: var(--bg-mid); transition: transform 0.4s, border-color 0.4s; }
+.case-card:hover { transform: translateY(-4px); border-color: var(--gold); }
+.case-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s, filter 0.4s; filter: brightness(0.7); }
+.case-card:hover img { transform: scale(1.05); filter: brightness(0.9); }
+.case-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,22,40,0.95) 0%, rgba(10,22,40,0.4) 50%, transparent 100%); padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; pointer-events: none; }
+.case-name { font-family: var(--serif); font-size: 20px; color: var(--ink); margin-bottom: 6px; line-height: 1.2; }
+.case-meta { font-size: 11px; color: var(--gold); letter-spacing: 1.5px; text-transform: uppercase; }
+.case-empty { grid-column: 1 / -1; padding: 40px; text-align: center; color: var(--ink-mute); font-style: italic; }
+
+.case-modal { display: none; position: fixed; inset: 0; background: rgba(10,22,40,0.92); z-index: 1000; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+.case-modal.open { display: flex; }
+.case-modal-inner { background: var(--bg-card); border: 1px solid var(--gold); max-width: 900px; width: 100%; max-height: 90vh; overflow-y: auto; position: relative; box-shadow: 0 40px 80px -20px rgba(0,0,0,0.7); }
+.case-modal-close { position: absolute; top: 16px; left: 16px; width: 44px; height: 44px; background: rgba(10,22,40,0.8); color: var(--ink); border: 1px solid var(--line); cursor: pointer; font-size: 24px; display: flex; align-items: center; justify-content: center; z-index: 10; transition: all 0.3s; }
+.case-modal-close:hover { background: var(--gold); color: var(--bg-deep); }
+.case-modal img { width: 100%; display: block; aspect-ratio: 16/9; object-fit: cover; }
+.case-modal-body { padding: 36px; }
+.case-modal-name { font-family: var(--serif); font-size: 32px; color: var(--ink); margin-bottom: 8px; }
+.case-modal-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+.case-tag { background: var(--bg-mid); border: 1px solid var(--gold); color: var(--gold); font-size: 11px; letter-spacing: 1.5px; text-transform: uppercase; padding: 6px 12px; }
+.case-modal-desc { color: var(--ink-soft); line-height: 1.75; font-size: 16px; }
+
+.colors-block { margin-top: 60px; padding: 60px 48px; background: var(--bg-card); border: 1px solid var(--line); }
+.colors-title { font-family: var(--serif); font-size: 24px; color: var(--ink); margin-bottom: 12px; }
+.colors-showcase { margin: 24px 0 36px; border: 1px solid var(--gold); overflow: hidden; position: relative; aspect-ratio: 16 / 9; box-shadow: 0 20px 50px -20px rgba(0,0,0,0.5); }
+.colors-showcase img { width: 100%; height: 100%; object-fit: cover; object-position: center 65%; display: block; }
+.colors-showcase-caption { position: absolute; bottom: 16px; right: 24px; background: rgba(10,22,40,0.92); color: var(--gold); padding: 8px 16px; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; border: 1px solid var(--line); }
+
+/* === COLOR PICKER WIDGET === */
+.picker-block { margin-top: 80px; padding: 60px 48px; background: linear-gradient(135deg, var(--bg-card-2) 0%, var(--bg-card) 100%); border: 1px solid var(--gold); box-shadow: 0 30px 60px -20px rgba(0,0,0,0.5); }
+.picker-eyebrow { font-size: 11px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; margin-bottom: 16px; }
+.picker-title { font-family: var(--serif); font-size: clamp(24px, 3vw, 34px); color: var(--ink); margin-bottom: 16px; line-height: 1.2; }
+.picker-title .gold { color: var(--gold); font-style: italic; font-weight: 500; }
+.picker-sub { font-size: 15px; color: var(--ink-soft); line-height: 1.7; margin-bottom: 36px; max-width: 700px; }
+.picker-canvas { position: relative; aspect-ratio: 16 / 10; overflow: hidden; border: 1px solid var(--line); margin-bottom: 28px; background: var(--bg-deep); }
+.picker-canvas img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: center 60%; display: block; opacity: 0; transition: opacity 0.5s ease; }
+.picker-canvas img.active { opacity: 1; }
+.picker-canvas .picker-current { position: absolute; bottom: 18px; right: 24px; background: rgba(10,22,40,0.92); border: 1px solid var(--gold); padding: 12px 20px; min-width: 200px; }
+.picker-current-label { font-size: 10px; letter-spacing: 2px; color: var(--ink-mute); text-transform: uppercase; margin-bottom: 4px; }
+.picker-current-name { font-family: var(--serif); font-size: 22px; color: var(--gold); line-height: 1; margin-bottom: 6px; }
+.picker-current-ncs { font-size: 11px; color: var(--ink-soft); letter-spacing: 1px; font-family: monospace; }
+.picker-chips { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; margin-bottom: 24px; max-width: 700px; }
+.picker-chip { cursor: pointer; padding: 8px; border: 2px solid transparent; transition: all 0.3s; background: rgba(255,255,255,0.03); }
+.picker-chip:hover { border-color: var(--ink-soft); transform: translateY(-2px); }
+.picker-chip.active { border-color: var(--gold); background: var(--gold-glow); }
+.picker-chip-swatch { width: 100%; aspect-ratio: 1; border: 1px solid var(--line); margin-bottom: 8px; position: relative; }
+.picker-chip-swatch::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), transparent 60%); pointer-events: none; }
+.picker-chip-name { font-family: var(--serif); font-size: 13px; color: var(--ink); text-align: center; line-height: 1.2; }
+.picker-chip.active .picker-chip-name { color: var(--gold); }
+.picker-chip-recommended { position: absolute; top: 4px; left: 4px; background: var(--gold); color: var(--bg-deep); padding: 2px 6px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; z-index: 2; }
+.picker-disclaimer { font-size: 12px; color: var(--ink-mute); line-height: 1.6; padding: 16px 20px; background: rgba(10,22,40,0.4); border-right: 3px solid var(--gold); margin-top: 8px; }
+.colors-sub { font-size: 15px; color: var(--ink-mute); margin-bottom: 32px; }
+.colors-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.color-swatch { cursor: pointer; transition: transform 0.3s; }
+.color-swatch:hover { transform: scale(1.02); }
+.color-chip { height: 200px; border: 1px solid var(--line); margin-bottom: 16px; position: relative; overflow: hidden; }
+.color-chip::after { content: ''; position: absolute; inset: 0; background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.15), transparent 60%); pointer-events: none; }
+.color-name { font-family: var(--serif); font-size: 22px; color: var(--ink); margin-bottom: 4px; }
+.color-desc { font-size: 13px; color: var(--ink-mute); }
+.swatch-lino { background: #EFE6D2; }
+.swatch-niebla { background: #E8E0CC; }
+.swatch-white { background: #F4F1EA; }
+.swatch-recommended { position: relative; }
+.swatch-recommended::before { content: 'מומלץ ע״י היצרן'; position: absolute; top: 12px; right: 12px; background: var(--gold); color: var(--bg-deep); padding: 4px 12px; font-size: 11px; letter-spacing: 1px; z-index: 2; }
+
+.numbers { background: linear-gradient(180deg, var(--bg-mid) 0%, var(--bg-deep) 100%); padding: 140px 0; border-top: 1px solid var(--line); }
+.numbers-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+.headline-cost { text-align: center; padding: 60px 0; border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); margin: 40px 0; }
+.headline-cost-label { font-size: 14px; letter-spacing: 3px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 24px; }
+.headline-cost-value { font-family: var(--serif); font-size: clamp(64px, 10vw, 140px); font-weight: 700; color: var(--gold); line-height: 0.95; letter-spacing: -3px; margin-bottom: 16px; }
+.headline-cost-note { font-size: 17px; color: var(--ink-soft); max-width: 600px; margin: 0 auto; padding: 0 16px; }
+.calc-block { margin-top: 80px; padding: 60px 48px; background: var(--bg-card); border: 1px solid var(--gold); box-shadow: var(--shadow); }
+.calc-title { font-family: var(--serif); font-size: 28px; color: var(--ink); margin-bottom: 12px; text-align: center; }
+.calc-sub { text-align: center; color: var(--ink-mute); font-size: 15px; margin-bottom: 48px; }
+.calc-slider-wrap { max-width: 700px; margin: 0 auto; }
+.calc-value-display { text-align: center; margin-bottom: 32px; }
+.calc-value-label { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 8px; }
+.calc-value-number { font-family: var(--serif); font-size: clamp(40px, 6vw, 56px); font-weight: 700; color: var(--gold); letter-spacing: -1px; line-height: 1; }
+.calc-slider { width: 100%; -webkit-appearance: none; appearance: none; height: 6px; background: var(--line); outline: none; margin: 24px 0; direction: rtl; touch-action: manipulation; }
+.calc-slider::-webkit-slider-thumb { -webkit-appearance: none; appearance: none; width: 32px; height: 32px; background: var(--gold); cursor: pointer; border-radius: 50%; box-shadow: 0 0 0 6px var(--gold-glow); transition: transform 0.2s; }
+.calc-slider::-webkit-slider-thumb:hover, .calc-slider::-webkit-slider-thumb:active { transform: scale(1.15); }
+.calc-slider::-moz-range-thumb { width: 32px; height: 32px; background: var(--gold); cursor: pointer; border-radius: 50%; border: none; }
+.calc-range { display: flex; justify-content: space-between; color: var(--ink-mute); font-size: 13px; }
+.calc-result { margin-top: 40px; padding-top: 40px; border-top: 1px solid var(--line); text-align: center; }
+.calc-result-label { font-size: 13px; letter-spacing: 2px; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 12px; }
+.calc-result-pct { font-family: var(--serif); font-size: clamp(58px, 9vw, 80px); font-weight: 700; color: var(--ink); letter-spacing: -2px; line-height: 1; }
+.calc-result-pct .pct-sign { font-size: 50px; color: var(--ink-mute); }
+.calc-result-msg { margin-top: 18px; color: var(--gold); font-style: italic; font-size: 17px; padding: 0 16px; }
+
+.risk { background: var(--bg-mid); padding: 120px 0; border-top: 1px solid var(--line); }
+.risk-inner { max-width: 1280px; margin: 0 auto; padding: 0 48px; }
+.risk-emblem { display: inline-block; font-family: var(--serif); font-size: 13px; letter-spacing: 4px; color: var(--gold); text-transform: uppercase; padding: 8px 20px; border: 1px solid var(--gold); margin-bottom: 32px; }
+.risk-outcomes { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-top: 60px; }
+.outcome-card { padding: 40px; background: var(--bg-card); border: 1px solid var(--line); }
+.outcome-letter { font-family: var(--serif); font-size: 60px; font-weight: 700; line-height: 1; margin-bottom: 16px; }
+.outcome-card.good .outcome-letter { color: var(--gold); }
+.outcome-card.alt .outcome-letter { color: var(--accent-red); }
+.outcome-title { font-family: var(--serif); font-size: 22px; color: var(--ink); margin-bottom: 16px; }
+.outcome-desc { color: var(--ink-soft); }
+
+.phases-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 50px; }
+.phase-card { padding: 32px; background: var(--bg-card); border: 1px solid var(--line); position: relative; cursor: pointer; transition: all 0.4s; }
+.phase-card:hover { border-color: var(--gold); transform: translateY(-6px); }
+.phase-num { font-family: var(--serif); font-size: 14px; letter-spacing: 3px; color: var(--gold); margin-bottom: 12px; }
+.phase-title { font-family: var(--serif); font-size: 22px; color: var(--ink); margin-bottom: 16px; line-height: 1.3; min-height: 60px; }
+.phase-desc { font-size: 14px; color: var(--ink-soft); line-height: 1.6; }
+.phase-when { font-size: 12px; letter-spacing: 1px; text-transform: uppercase; color: var(--ink-mute); margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--line); }
+
+.timeline { margin-top: 80px; padding: 40px; background: var(--bg-card); border: 1px solid var(--line); }
+.timeline-title { font-family: var(--serif); font-size: 22px; color: var(--ink); margin-bottom: 32px; }
+.timeline-bar { display: flex; height: 60px; border: 1px solid var(--line); overflow: hidden; }
+.tl-segment { display: flex; align-items: center; justify-content: center; font-size: 12px; text-align: center; padding: 0 8px; border-left: 1px solid var(--line); }
+.tl-segment:last-child { border-left: none; }
+.tl-test { background: rgba(184, 84, 80, 0.2); color: var(--ink-soft); flex: 2; }
+.tl-phase-a { background: linear-gradient(90deg, var(--bg-card-2), var(--gold-deep)); color: var(--ink); flex: 2; }
+.tl-rest { background: var(--bg-mid); color: var(--ink-mute); flex: 1; }
+.tl-phase-b { background: linear-gradient(90deg, var(--gold-deep), var(--gold)); color: var(--bg-deep); font-weight: 700; flex: 2; }
+.tl-service { background: rgba(201, 169, 97, 0.1); color: var(--gold); flex: 3; }
+.timeline-labels { display: flex; margin-top: 12px; font-size: 11px; color: var(--ink-mute); letter-spacing: 1px; }
+.timeline-labels span { flex: 1; text-align: center; }
+
+.payment-block { margin-top: 60px; padding: 50px; background: var(--bg-card); border: 1px solid var(--line); }
+.payment-title { font-family: var(--serif); font-size: 24px; color: var(--ink); margin-bottom: 32px; }
+.payment-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.pay-card { padding: 28px; background: var(--bg-mid); border: 1px solid var(--line); text-align: center; }
+.pay-num { font-family: var(--serif); font-size: 14px; letter-spacing: 3px; color: var(--gold); margin-bottom: 8px; }
+.pay-pct { font-family: var(--serif); font-size: 48px; font-weight: 700; color: var(--ink); line-height: 1; margin-bottom: 12px; }
+.pay-amount { font-size: 22px; color: var(--gold); font-weight: 500; margin-bottom: 16px; }
+.pay-when { font-size: 13px; color: var(--ink-soft); line-height: 1.5; }
+
+.faq-list { margin-top: 40px; }
+.faq-item { border-bottom: 1px solid var(--line); }
+.faq-q { cursor: pointer; padding: 28px 0; display: flex; justify-content: space-between; align-items: center; font-family: var(--serif); font-size: clamp(17px, 2vw, 21px); color: var(--ink); transition: color 0.3s; min-height: 48px; }
+.faq-q:hover { color: var(--gold); }
+.faq-q::after { content: '+'; font-size: 32px; font-weight: 300; color: var(--gold); transition: transform 0.3s; margin-right: 20px; font-family: var(--sans); flex-shrink: 0; }
+.faq-item.open .faq-q::after { transform: rotate(45deg); }
+.faq-a { max-height: 0; overflow: hidden; transition: max-height 0.4s ease, padding 0.4s ease; color: var(--ink-soft); font-size: 16px; line-height: 1.75; }
+.faq-item.open .faq-a { max-height: 800px; padding-bottom: 28px; }
+
+.cta { background: var(--bg-mid); padding: 120px 0; text-align: center; border-top: 1px solid var(--line); }
+.cta-inner { max-width: 900px; margin: 0 auto; padding: 0 48px; }
+.cta h2 { font-family: var(--serif); font-size: clamp(32px, 5vw, 56px); color: var(--ink); margin-bottom: 24px; line-height: 1.15; }
+.cta h2 .gold { color: var(--gold); font-style: italic; font-weight: 500; }
+.cta p { font-size: 18px; color: var(--ink-soft); margin-bottom: 50px; max-width: 700px; margin-right: auto; margin-left: auto; padding: 0 8px; }
+.cta-buttons { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; }
+
+footer { padding: 50px 48px; text-align: center; border-top: 1px solid var(--line); background: var(--bg-deep); }
+footer p { color: var(--ink-mute); font-size: 13px; letter-spacing: 1px; }
+footer p:not(:last-child) { margin-bottom: 8px; }
+footer .gold { color: var(--gold); }
+
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 1s ease, transform 1s ease; }
+.reveal.in { opacity: 1; transform: translateY(0); }
+@keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 1024px) {
+  .hero-grid { grid-template-columns: 1fr; gap: 40px; }
+  .hero-image-box { max-width: 480px; margin: 0 auto; }
+  .case-grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 768px) {
+  body { font-size: 16px; }
+  /* Android WebView hardening: backdrop-filter is buggy on many Android browsers, swap for solid bg */
+  .nav { padding: 14px 20px; background: rgba(10,22,40,0.98); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .nav.scrolled { padding: 10px 20px; }
+  .nav-links { display: none; }
+  .nav-brand { font-size: 18px; }
+  .hero { padding: 90px 20px 50px; min-height: auto; }
+  section { padding: 70px 20px; }
+  .problem, .numbers, .risk, .cta { padding: 70px 0; }
+  .problem-inner, .numbers-inner, .risk-inner, .cta-inner { padding: 0 20px; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 3px; margin-bottom: 24px; }
+  .hero-grid { gap: 32px; margin-bottom: 40px; }
+  /* Hero image box: explicit height fallback in case aspect-ratio fails on older Android */
+  .hero-image-box { aspect-ratio: 3 / 4; max-width: 360px; min-height: 360px; }
+  .hero-image-box .placeholder { padding: 24px; }
+  .hero-image-box .placeholder-icon { font-size: 48px; margin-bottom: 16px; }
+  .hero-image-box .placeholder-text { font-size: 16px; }
+  .hero-numbers { grid-template-columns: repeat(2, 1fr); padding: 24px 0; }
+  .hero-num { padding: 16px 12px; border-bottom: 1px solid var(--line); }
+  .hero-num:nth-child(odd) { border-left: 1px solid var(--line); }
+  .hero-num:nth-child(even) { border-left: none; }
+  .hero-num:nth-child(3), .hero-num:nth-child(4) { border-bottom: none; }
+  .hero-cta { margin-top: 40px; }
+  .problem-grid, .solution-comparison, .risk-outcomes, .colors-grid, .payment-grid { grid-template-columns: 1fr; gap: 16px; }
+  .phases-grid { grid-template-columns: 1fr; }
+  .case-grid { grid-template-columns: 1fr; }
+  .case-history { padding: 32px 20px; }
+  .case-filters { padding: 16px; gap: 12px 20px; }
+  .case-filters-label { width: 100%; margin-bottom: 4px; }
+  .case-counter { width: 100%; margin-top: 8px; margin-right: 0; }
+  .case-card { aspect-ratio: 16 / 10; min-height: 180px; }
+  .case-modal-inner { max-height: 95vh; }
+  .case-modal-body { padding: 24px; }
+  .case-modal-name { font-size: 24px; }
+  .case-modal { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(10,22,40,0.97); }
+  .hero-cta, .cta-buttons { flex-direction: column; width: 100%; }
+  .btn { width: 100%; padding: 16px 24px; }
+  .timeline { padding: 20px; }
+  .timeline-bar { height: 80px; }
+  .tl-segment { font-size: 10px; padding: 0 4px; }
+  .colors-block, .calc-block { padding: 32px 20px; }
+  .colors-showcase { aspect-ratio: 4 / 3; margin: 20px 0 28px; }
+  .colors-showcase-caption { font-size: 10px; padding: 6px 12px; bottom: 10px; right: 14px; letter-spacing: 1.5px; }
+  .picker-block { padding: 32px 20px; }
+  .picker-canvas { aspect-ratio: 4 / 3; }
+  .picker-canvas .picker-current { bottom: 12px; right: 14px; padding: 10px 14px; min-width: 160px; }
+  .picker-current-name { font-size: 18px; }
+  .picker-chips { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .picker-chip { padding: 6px; }
+  .picker-chip-name { font-size: 12px; }
+  .payment-block { padding: 28px 20px; }
+  /* CRITICAL FIX: switch problem-card-num to static positioning on mobile — fixes Android render break after problem section */
+  .problem-card { padding: 32px 24px; overflow: hidden; }
+  .problem-card-num { position: static; font-size: 56px; line-height: 1; display: block; margin-bottom: 8px; top: auto; left: auto; right: auto; }
+  .problem-card h3 { padding-left: 0; padding-right: 0; min-height: 0; }
+  .compare-card { padding: 28px 20px; }
+  .pay-pct { font-size: 40px; }
+  .pay-card { padding: 20px; }
+  footer { padding: 32px 20px; }
+}
+@media (max-width: 380px) {
+  .hero h1 { font-size: 30px; }
+  .headline-cost-value { font-size: 56px; }
+  .calc-result-pct { font-size: 52px; }
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" id="nav">
+  <div class="nav-brand">ספירים<span> · SAPIRIM</span></div>
+  <ul class="nav-links">
+    <li><a href="#problem">הרקע</a></li>
+    <li><a href="#solution">הפתרון</a></li>
+    <li><a href="#numbers">המספרים</a></li>
+    <li><a href="#process">תהליך</a></li>
+    <li><a href="#faq">שאלות</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <span class="hero-eyebrow">הצעה לשיפוץ לובי הבניין · מאי 2026</span>
+  <div class="hero-grid">
+    <div class="hero-text-col">
+      <h1>הגיע הזמן להחזיר ללובי <span class="gold">את המעמד שלו.</span></h1>
+      <p class="hero-sub">
+        פחות משנתיים מאז אכלוס הבניין, ורצפת הלובי כבר אינה משקפת את ערך הבניין. הצעה זו מציגה החלפה מלאה במערכת המיקרוטופינג <strong>Topcret Baxab</strong> בעובי 3 מ"מ — המערכת שהאדריכלים והמלונאים הטובים בעולם בוחרים, כשרצפה צריכה להישאר יפה גם אחרי עשור.
+      </p>
+    </div>
+    <div>
+      <div class="hero-image-box">
+        <img id="heroImg" src="images_hero_lobby.jpg" alt="לובי Topcret Baxab — תל אביב" style="display:block;">
+<div class="placeholder" id="heroPlaceholder" style="display:none;">
+          <div class="placeholder-icon">◇  ◇  ◇</div>
+          <div class="placeholder-text">לובי יוקרתי בתל אביב<br>ברצפת Topcret Baxab</div>
+          <div class="placeholder-note">תמונה תוטמע · Nano Banana</div>
+        </div>
+      </div>
+      <div class="hero-image-caption">חזון אחרי השיפוץ · רינדור Topcret-style</div>
+    </div>
+  </div>
+  <div class="hero-numbers">
+    <div class="hero-num"><div class="hero-num-value">450</div><div class="hero-num-label">מ״ר</div></div>
+    <div class="hero-num"><div class="hero-num-value">173</div><div class="hero-num-label">דירות · 2 מגדלים</div></div>
+    <div class="hero-num"><div class="hero-num-value">9</div><div class="hero-num-label">שבועות</div></div>
+    <div class="hero-num"><div class="hero-num-value">24</div><div class="hero-num-label">חודשי אחריות</div></div>
+  </div>
+  <div class="hero-cta">
+    <a href="#numbers" class="btn btn-primary">העלות לדירה שלי</a>
+    <a href="#process" class="btn btn-secondary">9 שלבי הביצוע</a>
+  </div>
+</section>
+
+<div class="problem" id="problem">
+  <div class="problem-inner">
+    <div class="reveal">
+      <span class="section-eyebrow">הרקע · מה השתבש</span>
+      <h2 class="section-title">לרצפה הקיימת היו <span class="gold">שתי בעיות בסיסיות</span> — ושתיהן ניתנות לתיקון.</h2>
+      <p class="section-lead">הרצפה הלבנה התדרדרה משמעותית פחות משנתיים מאז אכלוס הבניין — קצב שחיקה שאינו מתאים לבניין יוקרתי. הסיבות מתועדות וברורות, וההצעה הזו בנויה כדי לא לחזור עליהן.</p>
+    </div>
+    <div class="problem-grid">
+      <div class="problem-card reveal">
+        <div class="problem-card-num">01</div>
+        <h3>קטגוריית חומר שגויה</h3>
+        <p>המוצר הקיים — שרף אפוקסי-אקרילי גמיש — נבחר בקטגוריה שאינה מתאימה לעומס תנועה ציבורי רציף בבניין יוקרתי. הגמישות המובנית שלו היא בדיוק מה שגורם לשריטות ולכתמים. בניין יוקרתי דורש קטגוריה אחרת לחלוטין: מיקרוטופינג צמנטי קשיח.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-card-num">02</div>
+        <h3>היצמדות שלא נבדקה</h3>
+        <p>השרף יושב מעל אריחי הקרמיקה המקוריים, ללא תיעוד של בדיקת היצמדות בין שתי השכבות. זה הגורם הסביר לתופעות שאתם רואים היום. בהצעה זו, הבדיקה הזו תתבצע על ידי מכון מוסמך בלתי תלוי — לפני שאנחנו מתחילים לעבוד.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="solution" class="reveal">
+  <span class="section-eyebrow">הפתרון · Topcret Baxab</span>
+  <h2 class="section-title">המערכת שמותקנת ב<span class="gold">לובי מלון, מוזיאון ובוטיק</span> ברחבי אירופה.</h2>
+  <p class="section-lead">Baxab היא מערכת המיקרוטופינג המובילה של Topcret — היצרן הספרדי שהמציא את הקטגוריה (ברצלונה, 2005). הציפוי מסופק ישירות מברצלונה, ללא מתווך, ללא מיתוג מחדש. המערכת בנויה למשטחים שצריכים להישאר יפים תחת תנועה ציבורית רציפה.</p>
+
+  <div class="solution-comparison">
+    <div class="compare-card before reveal">
+      <div class="compare-label">המערכת הקיימת</div>
+      <div class="compare-title">שרף אפוקסי-אקרילי גמיש</div>
+      <ul class="compare-list">
+        <li>חומר רך, רגיש לעומס</li>
+        <li>נשחק בשנה הראשונה</li>
+        <li>סופג כתמים בגימור לבן</li>
+        <li>תיקונים נראים לעין</li>
+        <li>אספקה דרך מתווך לא שקוף</li>
+        <li>ללא פרוטוקול תחזוקה רשמי</li>
+      </ul>
+    </div>
+    <div class="compare-card after reveal">
+      <div class="compare-label">Baxab 3 מ״מ — המוצע</div>
+      <div class="compare-title">מיקרוטופינג צמנטי קשיח</div>
+      <ul class="compare-list">
+        <li>מהונדס לעומס תנועה ציבורי</li>
+        <li>עמיד בשריטות ובכתמים</li>
+        <li>אטום עם שכבת סילר תעשייתית</li>
+        <li>פרוטוקול תיקון מתועד של היצרן</li>
+        <li>אספקה ישירה מ-Topcret ברצלונה</li>
+        <li>מדריך תחזוקה בעברית + הדרכת צוות</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="case-history reveal">
+    <h3 class="case-title">פרויקטים מובחרים של Topcret ברחבי העולם</h3>
+    <p class="case-sub">פילטרו לפי סוג הפרויקט המעניין אתכם. כל הפרויקטים הותקנו במערכת Baxab או מיקרוטופינג Topcret. לחיצה על תמונה פותחת את פרטי הפרויקט — בתוך הדף, ללא יציאה לאתר חיצוני.</p>
+    <div class="case-filters" id="caseFilters">
+      <span class="case-filters-label">סנן לפי:</span>
+      <label class="case-filter"><input type="checkbox" data-filter-cat="office" checked> משרדים ולובי עסקי</label>
+      <label class="case-filter"><input type="checkbox" data-filter-cat="retail" checked> חנויות ושוורומים</label>
+      <label class="case-filter"><input type="checkbox" data-filter-cat="hospitality" checked> מסעדות ואירוח</label>
+      <label class="case-filter"><input type="checkbox" data-filter-cat="residential" checked> מגורים יוקרה</label>
+      <label class="case-filter"><input type="checkbox" data-filter-cat="institutional" checked> מוסדי וציבורי</label>
+      <span class="case-counter" id="caseCounter">12 פרויקטים</span>
+    </div>
+    <div class="case-grid" id="caseGrid"></div>
+  </div>
+
+  <div class="colors-block reveal">
+    <h3 class="colors-title">פלטת הגוונים</h3>
+    <div class="colors-showcase">
+      <img src="images_palette_lobby.jpg" alt="הלובי לאחר השיפוץ — רצפת Topcret Baxab בגוון לבן חמים" loading="lazy">
+      <div class="colors-showcase-caption">המראה הסופי המתוכנן · רצפת Baxab</div>
+    </div>
+    <p class="colors-sub">המחלקה הטכנית של Topcret ממליצה על גוון לבן חמים מעט (Lino או Niebla) במקום לבן צרוף — לאיזון בין הוויז'ן של האדריכל לבין עמידות בכתמים לטווח ארוך.</p>
+    <div class="colors-grid">
+      <div class="color-swatch"><div class="color-chip swatch-recommended swatch-lino"></div><div class="color-name">Lino</div><div class="color-desc">לבן חמים · ההמלצה הראשונה של היצרן</div></div>
+      <div class="color-swatch"><div class="color-chip swatch-recommended swatch-niebla"></div><div class="color-name">Niebla</div><div class="color-desc">לבן ערפילי · אלטרנטיבה איזונית</div></div>
+      <div class="color-swatch"><div class="color-chip swatch-white"></div><div class="color-name">White</div><div class="color-desc">לבן צרוף · דורש תחזוקה אינטנסיבית</div></div>
+    </div>
+  </div>
+
+  <!-- === COLOR PICKER WIDGET === -->
+  <div class="picker-block reveal" id="picker">
+    <div class="picker-eyebrow">כלי תצוגה לאדריכלים ולמעצבים · INTERACTIVE</div>
+    <h2 class="picker-title">נסי את כל הגוונים <span class="gold">בלובי שלכם.</span></h2>
+    <p class="picker-sub">
+      בחרי גוון מתוך 5 הגוונים הנפוצים ביותר מהקטלוג הרשמי של Topcret עבור לובי יוקרה. התמונה תתעדכן מיידית ותציג את הלובי של Wissotzky 6 ברצפת Baxab בגוון שבחרת. כלי זה תוכנן עבור המעצבת הפנימית של הבניין — לבחינה ויזואלית של אפשרויות הגוון, לקראת אישור סופי על פאנלי דוגמה פיזיים באתר.
+    </p>
+
+    <div class="picker-canvas" id="pickerCanvas">
+      <!-- Images stacked, only active is visible — JS toggles classes -->
+      <div class="picker-current">
+        <div class="picker-current-label">הגוון הנבחר</div>
+        <div class="picker-current-name" id="pickerName">Lino</div>
+        <div class="picker-current-ncs" id="pickerNcs">NCS S 2005-Y20R</div>
+      </div>
+    </div>
+
+    <div class="picker-chips" id="pickerChips">
+      <!-- populated by JS -->
+    </div>
+
+    <p class="picker-disclaimer">
+      <strong>הערה חשובה:</strong> הדמיות אלו הופקו באמצעות AI מצילומי הלובי האמיתיים של Wissotzky 6, ומציגות את הכיוון הויזואלי בלבד. דיוק הגוון בהדמיה תלוי בעיבוד תוכנה. <strong>בחירת הגוון הסופית תאושר על פאנלי דוגמה פיזיים של Topcret באתר הפרויקט</strong> — בתנאי תאורה אמיתיים, לפני הזמנת חומרים מברצלונה.
+    </p>
+  </div>
+</section>
+
+<div class="case-modal" id="caseModal">
+  <div class="case-modal-inner">
+    <button class="case-modal-close" id="modalClose" aria-label="סגור">×</button>
+    <img id="modalImg" src="" alt="">
+    <div class="case-modal-body">
+      <h3 class="case-modal-name" id="modalName"></h3>
+      <div class="case-modal-tags" id="modalTags"></div>
+      <p class="case-modal-desc" id="modalDesc"></p>
+    </div>
+  </div>
+</div>
+
+<div class="numbers" id="numbers">
+  <div class="numbers-inner">
+    <div class="reveal">
+      <span class="section-eyebrow">המספרים · השקיפות המלאה</span>
+      <h2 class="section-title">השאלה האמיתית: <span class="gold">כמה זה עולה לי לדירה?</span></h2>
+      <p class="section-lead">סך הפרויקט מחולק שווה בין 173 הדירות בשני המגדלים (כל מגדל 15 קומות). זה הסכום שאתם נדרשים להשקיע — וזה היחס שלו לערך הדירה שלכם.</p>
+    </div>
+    <div class="headline-cost reveal">
+      <div class="headline-cost-label">עלות לדירה · כולל מע״מ</div>
+      <div class="headline-cost-value">€2,786</div>
+      <div class="headline-cost-note">חלוקה שווה בין 173 הדירות (2 מגדלים × 15 קומות). המחיר משקף את כלל הפרויקט: 450 מ"ר לובי, התקנה מלאה, 9 שבועות ביצוע ו-24 חודשי אחריות.</div>
+    </div>
+    <div class="calc-block reveal">
+      <h3 class="calc-title">כמה זה משווי הדירה שלכם?</h3>
+      <p class="calc-sub">הזיזו את הסליידר כדי לראות את היחס לערך השוק של הדירה</p>
+      <div class="calc-slider-wrap">
+        <div class="calc-value-display">
+          <div class="calc-value-label">שווי הדירה</div>
+          <div class="calc-value-number" id="aptValue">€ 5,000,000</div>
+        </div>
+        <input type="range" min="2000000" max="8000000" step="100000" value="5000000" class="calc-slider" id="slider">
+        <div class="calc-range"><span>€ 8,000,000</span><span>€ 2,000,000</span></div>
+        <div class="calc-result">
+          <div class="calc-result-label">העלות לדירה כאחוז משוויה</div>
+          <div class="calc-result-pct"><span id="pctVal">0.056</span><span class="pct-sign">%</span></div>
+          <div class="calc-result-msg" id="pctMsg">פחות מ-0.08% משווי הדירה</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="risk" id="risk">
+  <div class="risk-inner">
+    <div class="reveal">
+      <div class="risk-emblem">★ הסעיף שלא היה בהתקנה הקודמת ★</div>
+      <h2 class="section-title">לפני שאנחנו <span class="gold">נוגעים ברצפה</span> — מכון מוסמך בודק אותה.</h2>
+      <p class="section-lead">ההבדל המרכזי בין ההצעה הזו לבין מה שקרה בהתקנה הקודמת: שלב הבדיקה המקדים. לפני כל מחויבות לחומרים או לעבודה, מכון בדיקה ישראלי בלתי תלוי קודח דגימות, מבצע Pull-Off Test מכויל, ומוציא דו"ח רשמי. הדו"ח קובע את המשך הדרך — לא ניחושים, לא בדיקות חופזות, לא תקווה.</p>
+    </div>
+    <div class="risk-outcomes">
+      <div class="outcome-card good reveal">
+        <div class="outcome-letter">A</div>
+        <div class="outcome-title">המצע הקיים מספק</div>
+        <p class="outcome-desc">הפרויקט ממשיך לפי ההצעה הזו, ללא שינוי תקציבי. אתם מקבלים מערכת חדשה שמותקנת על מצע מאומת.</p>
+      </div>
+      <div class="outcome-card alt reveal">
+        <div class="outcome-letter">B</div>
+        <div class="outcome-title">המצע דורש החלפה</div>
+        <p class="outcome-desc">השרף הישן (ואולי גם האריחים מתחת) יוסר לפני ההתקנה. תכולה ותקציב משלימים יוצגו בשקיפות — בלי הפתעות באמצע הפרויקט.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<section id="process" class="reveal">
+  <span class="section-eyebrow">תכולה · 9 שלבים</span>
+  <h2 class="section-title">תוכנית ביצוע מסודרת — <span class="gold">שלב אחר שלב.</span></h2>
+  <p class="section-lead">הפרויקט מבוצע בשני שלבי שטח (A ו-B), כדי שלעולם לא יותר ממחצית מהלובי תהיה סגורה. הדיירים ממשיכים להיכנס ולצאת מהבניין כרגיל לאורך כל הביצוע.</p>
+  <div class="phases-grid">
+    <div class="phase-card"><div class="phase-num">שלב 1</div><div class="phase-title">בדיקות מצע מקדימות</div><div class="phase-desc">קידוח דגימות, Pull-Off Test, אפיון גמישות, דו"ח רשמי של מכון מוסמך.</div><div class="phase-when">שבועות 1-2</div></div>
+    <div class="phase-card"><div class="phase-num">שלב 2</div><div class="phase-title">חלוקה והתארגנות</div><div class="phase-desc">פרופיל הפרדה מפליז/אלומיניום בקו האמצע — אלמנט עיצוב מכוון, לא תפר נסתר.</div><div class="phase-when">שבוע 4 · יום 1</div></div>
+    <div class="phase-card"><div class="phase-num">שלב 3</div><div class="phase-title">מיגון נכסים</div><div class="phase-desc">מחיצות עץ, חלונות, מעליות, קירות — מוגנים בלוחות, סרטים והגנת קצוות.</div><div class="phase-when">שבוע 4 · ימים 1-2</div></div>
+    <div class="phase-card"><div class="phase-num">שלב 4</div><div class="phase-title">הכנה מכאנית</div><div class="phase-desc">ליטוש בגרעין 24 לפתיחת המשטח, שאיבת אבק תעשייתית מתמדת, תיקוני שטח.</div><div class="phase-when">שבוע 4 · ימים 2-4</div></div>
+    <div class="phase-card"><div class="phase-num">שלב 5</div><div class="phase-title">התקנת Baxab</div><div class="phase-desc">פריימר, שתי שכבות מבניות, גימור ידני, סילר אטימה — בקרת תערובת ועובי רציפה.</div><div class="phase-when">שבוע 5 · ימים 1-8</div></div>
+    <div class="phase-card"><div class="phase-num">שלב 6</div><div class="phase-title">פירוק וניקיון עומק</div><div class="phase-desc">קבלן ניקיון תעשייתי חיצוני, מסירת שלב A לשימוש דיירים.</div><div class="phase-when">שבוע 5 · ימים 9-10</div></div>
+    <div class="phase-card"><div class="phase-num">שלב 7</div><div class="phase-title">חזרה על שלב B</div><div class="phase-desc">אותה תכולה, אותו צוות, 225 מ"ר נוספים. הפרופיל באמצע מבטיח מעבר חלק.</div><div class="phase-when">שבועות 7-8</div></div>
+    <div class="phase-card"><div class="phase-num">שלב 8</div><div class="phase-title">3 חודשי שירות</div><div class="phase-desc">3 ביקורי ניקיון תעשייתי + הדרכה לצוות הניקיון של הבניין + מדריך תחזוקה בעברית.</div><div class="phase-when">חודשים 1-3 לאחר מסירה</div></div>
+    <div class="phase-card"><div class="phase-num">שלב 9</div><div class="phase-title">תחזוקה ארוכת טווח</div><div class="phase-desc">ביקורת שנה 1 כלולה. חוזה תחזוקה שנתי מוצע בנפרד — €3,800/שנה.</div><div class="phase-when">חודש 12 ואילך</div></div>
+  </div>
+  <div class="timeline reveal">
+    <h3 class="timeline-title">לוח זמנים — מהאישור עד שנה אחת</h3>
+    <div class="timeline-bar">
+      <div class="tl-test">בדיקות מצע · שבועות 1-2</div>
+      <div class="tl-phase-a">שלב A · שבועות 4-5</div>
+      <div class="tl-rest">הפוגה · שבוע 6</div>
+      <div class="tl-phase-b">שלב B · שבועות 7-8</div>
+      <div class="tl-service">שירות לאחר מסירה · חודשים 1-3</div>
+    </div>
+    <div class="timeline-labels"><span>שבוע 1</span><span></span><span>שבוע 5</span><span></span><span>שבוע 9</span><span></span><span>חודש 3</span></div>
+  </div>
+</section>
+
+<section id="faq" class="reveal">
+  <span class="section-eyebrow">שאלות נפוצות</span>
+  <h2 class="section-title">מה הדיירים שואלים?</h2>
+  <div class="faq-list">
+    <div class="faq-item"><div class="faq-q">האם אוכל להיכנס לבניין כרגיל במהלך העבודות?</div><div class="faq-a">כן. הפרויקט בנוי בשני שלבים (A ו-B), ובכל רגע נתון רק מחצית מהלובי סגורה. הכניסה לבניין, המעליות והנגישות לדואר ולחנייה ממשיכים לפעול כרגיל.</div></div>
+    <div class="faq-item"><div class="faq-q">למה לחכות לדו"ח הבדיקה לפני האישור הסופי?</div><div class="faq-a">דו"ח הבדיקה (שלב 1, ~€4,000) הוא צעד ראשוני בעלות נמוכה ומחויבות מוגבלת — אבל הוא מגדיר באופן מוסמך אם המצע הקיים יכול לקבל את המערכת החדשה. זה בדיוק הצעד שלא נעשה בהתקנה הקודמת.</div></div>
+    <div class="faq-item"><div class="faq-q">למה הצבע הלבן בעייתי? אנחנו רוצים לובי בהיר.</div><div class="faq-a">היצרן ממליץ במפורש על גוונים חמים מעט (Lino, Niebla) במקום לבן צרוף, כדי לאזן בין המראה האסתטי לבין נראות הכתמים לטווח ארוך.</div></div>
+    <div class="faq-item"><div class="faq-q">מה האחריות? מה קורה אם משהו נכשל?</div><div class="faq-a">ספירים נותנת אחריות ביצוע של 24 חודשים מהמסירה הסופית. בנוסף, Topcret נותנת אחריות יצרן של 3 שנים (Garantía de Coste Cero). האחריות תקפה לשימוש בהתאם לנתוני המסמך המפורט, אשר יוצג וייחתם כחלק מהחוזה המסחרי.</div></div>
+    <div class="faq-item"><div class="faq-q">למה לא לבחור פתרון זול יותר?</div><div class="faq-a">היה לכם פתרון זול יותר — וזה הסטטוס היום. הקטגוריה השגויה של החומר היא הסיבה לכשל הנוכחי. Baxab הוא לא "שדרוג" — זוהי הקטגוריה הנכונה לסוג הבניין הזה.</div></div>
+    <div class="faq-item"><div class="faq-q">מי בודק את האיכות במהלך הביצוע?</div><div class="faq-a">אבשי ספיר מספירים נוכח באתר ברצפים יומיים במהלך שלבי ההתקנה. בקרת איכות שוטפת — יחסי תערובת, עובי שכבות, תנאי טמפרטורה ולחות — מתועדת בכתב.</div></div>
+    <div class="faq-item"><div class="faq-q">איך מתחזקים את הרצפה לאורך זמן?</div><div class="faq-a">בסיום הפרויקט אתם מקבלים מדריך תחזוקה כתוב בעברית, אספקה ראשונית של הדטרגנט המאושר על ידי היצרן, ושני מפגשי הדרכה (בעברית) לצוות הניקיון של הבניין.</div></div>
+    <div class="faq-item"><div class="faq-q">מתי באמת מתחילים?</div><div class="faq-a">העבודה באתר מתחילה בשבוע 4 מרגע אישור ההצעה הרשמי. שבועות 1-3 הם זמן הבדיקות, הזמנת החומרים מברצלונה, ואישור הגוון על פאנלי דוגמה.</div></div>
+  </div>
+</section>
+
+<div class="cta">
+  <div class="cta-inner">
+    <h2>השלב הבא — <span class="gold">סקירת ההצעה.</span></h2>
+    <p>הצעה זו היא טיוטה הפתוחה לסקירה ולתיאום. נשמח להציג אותה אישית מול מנהל האחזקה ומול נציג ועד הדיירים, ולענות על כל שאלה לפני שיוצאים לדרך.</p>
+    <div class="cta-buttons">
+      <a href="mailto:avshi@sapirim.com" class="btn btn-primary">קביעת פגישת הצגה</a>
+      <a href="#" class="btn btn-secondary" id="downloadPdf">הורדת ההצעה המלאה</a>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p><span class="gold">ספירים</span> · פתרונות ריצוף ומשטחים מיוחדים</p>
+  <p>אבשי ספיר · avshi@sapirim.com</p>
+  <p style="margin-top: 20px; font-size: 11px;">הצעת תקציב Baxab · Wissotzky 6, תל אביב · גרסה 13.05.2026 · v7 · טיוטה לסקירה</p>
+  <p style="font-size: 11px;">תוקף ההצעה: 60 יום · עלויות חומרים מובטחות 60 יום מתאריך ההצעה</p>
+</footer>
+
+<script>
+var CASES = [
+  { id: 'google', name: 'Google Campus', loc: 'מדריד, ספרד', cat: ['office','institutional'], tags: ['Caso de Éxito','Office','Baxab'], img: 'https://topcret.com/wp-content/uploads/2023/07/dest-wpv_1440x700px_center_center.webp', desc: 'משרדי הקמפוס המרכזי של גוגל במדריד הותקנו במערכת Baxab של Topcret — שטחי עומס תנועה גבוה במיוחד, סביבת עבודה היברידית עם עומס יומי של אלפי משתמשים. בחירת המערכת התבססה על הצורך בעמידות לטווח ארוך ועל אסתטיקה מינימליסטית.' },
+  { id: 'lacoste', name: 'Lacoste UK Flagship', loc: 'לונדון, בריטניה', cat: ['retail'], tags: ['Caso de Éxito','Tienda','Baxab'], img: 'https://topcret.com/wp-content/uploads/2023/08/lacoste-1-1-wpv_1440x700px_center_center.webp', desc: 'חנות הדגל של Lacoste בלונדון. רצפת Baxab בגוון נייטרלי, נבחרה בידי האדריכלים בזכות עמידותה בעומס לקוחות גבוה לצד גמישות אסתטית התואמת את שפת המותג.' },
+  { id: 'bo', name: 'Bang & Olufsen', loc: 'אירופה', cat: ['retail'], tags: ['Caso de Éxito','Showroom','Baxab'], img: 'https://topcret.com/wp-content/uploads/2024/01/byo-1-wpv_1440x700px_center_center.webp', desc: 'שוורומים של חברת האודיו היוקרתית Bang & Olufsen. הרצפה תוכננה לשרת תצוגה של מוצרים ברמת פרימיום, עם דרישה לרצפה אחידה לחלוטין ללא תפרים גלויים.' },
+  { id: 'grosvenor', name: 'Grosvenor', loc: 'מייפייר, לונדון', cat: ['residential','office'], tags: ['Caso de Éxito','Office','Baxab'], img: 'https://topcret.com/wp-content/uploads/2021/09/grosvenor-1-wpv_1440x700px_center_center.webp', desc: 'מגדל היוקרה Grosvenor במייפייר — אחד מהאזורים היקרים בלונדון. רצפת Baxab בלובי הראשי, נבחרה בהתאם לדרישות הסטנדרט הגבוה ביותר של המתחם.' },
+  { id: 'heal', name: 'Heal & Son', loc: 'לונדון, בריטניה', cat: ['retail'], tags: ['Caso de Éxito','Tienda','Baxab'], img: 'https://topcret.com/wp-content/uploads/2024/07/heal-1-wpv_1440x700px_center_center.webp', desc: 'רשת ריהוט יוקרה Heal & Son, מותג בריטי איקוני שנוסד ב-1810. השוורום המרכזי הותקן ב-Baxab כחלק משיפוץ שביקש לשמר את שפת המותג ההיסטורית עם רגישות עכשווית.' },
+  { id: 'marshall', name: 'Marshall Street', loc: 'לונדון, בריטניה', cat: ['hospitality','retail'], tags: ['Caso de Éxito','Tienda','Baxab'], img: 'https://topcret.com/wp-content/uploads/2022/10/mar-1-wpv_1440x700px_center_center.webp', desc: 'פרויקט מסחרי בסוהו, לונדון. המעבר בין אזורים פנימיים שונים בוצע במלואו ב-Baxab — הוכחה לגמישות העיצובית של המערכת על משטחי תנועה אינטנסיביים.' },
+  { id: 'reading', name: 'Reading International Business Park', loc: 'רידינג, בריטניה', cat: ['office','institutional'], tags: ['Caso de Éxito','Office','Baxab'], img: 'https://topcret.com/wp-content/uploads/2023/10/reading-1-2-wpv_1440x700px_center_center.webp', desc: 'פארק עסקים בינלאומי המאכלס מאות חברות. הלובי הראשי והאזורים המשותפים הותקנו ב-Baxab — בדיוק התרחיש של בניין מגורים יוקרתי: עומס תנועה רציף, ציפיה לתחזוקה מינימלית, אסתטיקה ייצוגית.' },
+  { id: 'coac', name: "Architects' Association of Catalonia (COAC)", loc: 'ברצלונה, ספרד', cat: ['institutional','office'], tags: ['Caso de Éxito','Office','Microcemento'], img: 'https://topcret.com/wp-content/uploads/2023/10/coac-1-1-wpv_1440x700px_center_center.webp', desc: 'מטה איגוד האדריכלים של קטלוניה — הגוף המייצג את כל האדריכלים בקטלוניה. בחירת Topcret על ידי הגוף שמייצג את המקצוע עצמו היא העדות הטובה ביותר לאיכות החומר.' },
+  { id: 'norton', name: 'Norton Motorcycles', loc: 'בריטניה', cat: ['retail','institutional'], tags: ['Caso de Éxito','Showroom','Baxab'], img: 'https://topcret.com/wp-content/uploads/2022/11/nortonok-wpv_1440x700px_center_center.webp', desc: 'מטה היצרן הבריטי האיקוני Norton Motorcycles. שילוב של אזורי תצוגה, ייצור ומשרדים — מערכת Baxab זהה לכל המרחבים, עומדת בסטנדרטים תעשייתיים לצד דרישות אסתטיות גבוהות.' },
+  { id: 'boltons', name: 'The Boltons', loc: 'דרום קנזינגטון, לונדון', cat: ['residential'], tags: ['Residenciales','Casa','Baxab'], img: 'https://topcret.com/wp-content/uploads/2023/10/theboltons-1-wpv_1440x700px_center_center.webp', desc: 'אחד מהרחובות היקרים בלונדון. בית פרטי יוקרתי שהותקן במערכת Baxab — דוגמה ישירה ליישום במגורי פרימיום של ערך דומה לבניין שלכם בתל אביב.' },
+  { id: 'iht', name: 'IHT Headquarters', loc: 'ספרד', cat: ['office','institutional'], tags: ['Caso de Éxito','Office','Microcemento'], img: 'https://topcret.com/wp-content/uploads/2023/10/iht-1-1-wpv_1440x700px_center_center.webp', desc: 'מטה חברת IHT. לובי ראשי, אזורי ישיבות, ומסדרונות — כולם תחת מערכת מיקרוטופינג אחת רציפה, מתואמת לעיצוב מודרני-תעשייתי.' },
+  { id: 'zero', name: 'Topcret Zero (HQ)', loc: 'ברצלונה, ספרד', cat: ['office','institutional'], tags: ['Caso de Éxito','Office','Baxab'], img: 'https://topcret.com/wp-content/uploads/2023/10/oficinestopcret-2-wpv_1440x700px_center_center.webp', desc: 'משרדי המטה של Topcret בברצלונה. החברה משתמשת במערכת שלה עצמה — Baxab — בכל שטחי המטה. דוגמה לתפיסה של החברה את האיכות והעמידות של המוצר שלה.' }
+];
+
+function renderCases() {
+  var grid = document.getElementById('caseGrid');
+  var counter = document.getElementById('caseCounter');
+  var activeFilters = [];
+  document.querySelectorAll('[data-filter-cat]').forEach(function(cb) {
+    if (cb.checked) activeFilters.push(cb.getAttribute('data-filter-cat'));
+    var label = cb.parentElement;
+    if (cb.checked) label.classList.add('checked');
+    else label.classList.remove('checked');
+  });
+  var filtered = CASES.filter(function(c) {
+    return c.cat.some(function(cat) { return activeFilters.indexOf(cat) !== -1; });
+  });
+  counter.textContent = filtered.length + ' פרויקטים';
+  if (filtered.length === 0) {
+    grid.innerHTML = '<div class="case-empty">בחרו לפחות קטגוריה אחת כדי לראות פרויקטים</div>';
+    return;
+  }
+  var html = '';
+  filtered.forEach(function(c) {
+    html += '<div class="case-card" data-case-id="' + c.id + '"><img src="' + c.img + '" alt="' + c.name + '" loading="lazy"><div class="case-overlay"><div class="case-name">' + c.name + '</div><div class="case-meta">' + c.loc + '</div></div></div>';
+  });
+  grid.innerHTML = html;
+  document.querySelectorAll('.case-card').forEach(function(card) {
+    card.addEventListener('click', function() { openCaseModal(card.getAttribute('data-case-id')); });
+  });
+}
+
+function openCaseModal(id) {
+  var c = null;
+  for (var i = 0; i < CASES.length; i++) { if (CASES[i].id === id) { c = CASES[i]; break; } }
+  if (!c) return;
+  document.getElementById('modalImg').src = c.img;
+  document.getElementById('modalImg').alt = c.name;
+  document.getElementById('modalName').textContent = c.name + ' · ' + c.loc;
+  var tagsHtml = '';
+  c.tags.forEach(function(t) { tagsHtml += '<span class="case-tag">' + t + '</span>'; });
+  document.getElementById('modalTags').innerHTML = tagsHtml;
+  document.getElementById('modalDesc').textContent = c.desc;
+  document.getElementById('caseModal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+document.getElementById('modalClose').addEventListener('click', function() {
+  document.getElementById('caseModal').classList.remove('open');
+  document.body.style.overflow = '';
+});
+document.getElementById('caseModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    this.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    document.getElementById('caseModal').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+document.querySelectorAll('[data-filter-cat]').forEach(function(cb) {
+  cb.addEventListener('change', renderCases);
+});
+renderCases();
+
+var nav = document.getElementById('nav');
+window.addEventListener('scroll', function() {
+  if (window.scrollY > 50) nav.classList.add('scrolled');
+  else nav.classList.remove('scrolled');
+});
+
+var observer = new IntersectionObserver(function(entries) {
+  entries.forEach(function(e) {
+    if (e.isIntersecting) { e.target.classList.add('in'); observer.unobserve(e.target); }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.reveal').forEach(function(el) { observer.observe(el); });
+
+var slider = document.getElementById('slider');
+var aptVal = document.getElementById('aptValue');
+var pctVal = document.getElementById('pctVal');
+var pctMsg = document.getElementById('pctMsg');
+var COST_PER_APT = 2786;
+function formatEur(n) { return '€ ' + n.toLocaleString('en-US'); }
+function updateCalc() {
+  var v = parseInt(slider.value);
+  aptVal.textContent = formatEur(v);
+  var pct = (COST_PER_APT / v) * 100;
+  pctVal.textContent = pct.toFixed(3);
+  if (pct > 0.10) pctMsg.textContent = 'פחות מ-0.15% משווי הדירה';
+  else if (pct > 0.07) pctMsg.textContent = 'פחות מעשירית האחוז משווי הדירה';
+  else if (pct > 0.05) pctMsg.textContent = 'פחות מ-0.08% משווי הדירה';
+  else pctMsg.textContent = 'פחות מ-0.05% משווי הדירה';
+}
+slider.addEventListener('input', updateCalc);
+updateCalc();
+
+document.querySelectorAll('.faq-q').forEach(function(q) {
+  q.addEventListener('click', function() {
+    var item = q.parentElement;
+    var wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(function(i) { i.classList.remove('open'); });
+    if (!wasOpen) item.classList.add('open');
+  });
+});
+
+document.querySelectorAll('a[href^="#"]').forEach(function(link) {
+  link.addEventListener('click', function(e) {
+    var href = link.getAttribute('href');
+    if (href === '#' || href === '#download') return;
+    var target = document.querySelector(href);
+    if (target) {
+      e.preventDefault();
+      var top = target.getBoundingClientRect().top + window.scrollY - 60;
+      window.scrollTo({ top: top, behavior: 'smooth' });
+    }
+  });
+});
+
+// === COLOR PICKER WIDGET ===
+var COLORS = [
+  { id: 'lino',       name: 'Lino',         hex: '#EFE6D2', ncs: 'NCS S 2005-Y20R', recommended: true,  desc: 'לבן חמים · המלצת היצרן' },
+  { id: 'niebla',     name: 'Niebla',       hex: '#E8E4DC', ncs: 'NCS S 1000N',     recommended: true,  desc: 'לבן ערפילי · אלטרנטיבה' },
+  { id: 'sabbia',     name: 'Sabbia',       hex: '#CDB592', ncs: 'NCS S 3020-Y10R', recommended: false, desc: 'חולי · משתלב עם הקיר העץ' },
+  { id: 'hazelnut',   name: 'Hazelnut',     hex: '#C9B091', ncs: 'NCS S 3005-Y50R', recommended: false, desc: 'אגוז · בחירה אדריכלית עזה' },
+  { id: 'perla',      name: 'Perla',        hex: '#D5D3CE', ncs: 'NCS S 2000N',     recommended: false, desc: 'פנינה · אפור קריר' }
+];
+var DEFAULT_COLOR = 'lino';
+var FALLBACK_IMG = 'images_palette_lobby.jpg';
+
+function initPicker() {
+  var canvas = document.getElementById('pickerCanvas');
+  var chipsContainer = document.getElementById('pickerChips');
+  if (!canvas || !chipsContainer) return;
+
+  // Build images stack — one <img> per color, only active is visible
+  COLORS.forEach(function(c) {
+    var img = document.createElement('img');
+    img.src = 'images_picker_' + c.id + '.jpg';
+    img.alt = 'הלובי בגוון ' + c.name;
+    img.setAttribute('data-color', c.id);
+    img.loading = 'lazy';
+    // Fallback to the existing palette image if the per-color file is missing
+    img.onerror = function() {
+      if (this.src.indexOf(FALLBACK_IMG) === -1) {
+        this.src = FALLBACK_IMG;
+      }
+    };
+    canvas.insertBefore(img, canvas.firstChild);
+  });
+
+  // Build chips
+  COLORS.forEach(function(c) {
+    var chip = document.createElement('div');
+    chip.className = 'picker-chip';
+    chip.setAttribute('data-color', c.id);
+    var html = '';
+    if (c.recommended) html += '<div class="picker-chip-recommended">מומלץ</div>';
+    html += '<div class="picker-chip-swatch" style="background:' + c.hex + ';position:relative;"></div>';
+    html += '<div class="picker-chip-name">' + c.name + '</div>';
+    chip.innerHTML = html;
+    chip.addEventListener('click', function() { selectColor(c.id); });
+    chipsContainer.appendChild(chip);
+  });
+
+  // Activate default
+  selectColor(DEFAULT_COLOR);
+}
+
+function selectColor(id) {
+  var color = null;
+  for (var i = 0; i < COLORS.length; i++) {
+    if (COLORS[i].id === id) { color = COLORS[i]; break; }
+  }
+  if (!color) return;
+
+  // Toggle image visibility
+  document.querySelectorAll('#pickerCanvas img').forEach(function(img) {
+    if (img.getAttribute('data-color') === id) img.classList.add('active');
+    else img.classList.remove('active');
+  });
+
+  // Toggle chip selection
+  document.querySelectorAll('.picker-chip').forEach(function(chip) {
+    if (chip.getAttribute('data-color') === id) chip.classList.add('active');
+    else chip.classList.remove('active');
+  });
+
+  // Update caption
+  document.getElementById('pickerName').textContent = color.name;
+  document.getElementById('pickerNcs').textContent = color.ncs;
+}
+initPicker();
+
+
+  e.preventDefault();
+  alert('ההצעה המלאה תישלח במייל בנפרד.\n\nלפניות: avshi@sapirim.com');
+});
+</script>
+
+</body>
+</html>
